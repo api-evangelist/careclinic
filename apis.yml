@@ -1,0 +1,45 @@
+name: CareClinic
+description: 'CareClinic MCP is a private OAuth-connected health-tracking service for supported AI assistants: user-authorized
+  schedule and wellness reads, observational summaries, and explicitly confirmed symptom or mood writes. Medication
+  writes remain disabled. MCP-only surface -- there is no public REST contract, by design.'
+url: https://raw.githubusercontent.com/api-evangelist/careclinic/refs/heads/main/apis.yml
+created: '2026-09-09'
+modified: '2026-09-09'
+specificationVersion: '0.21'
+tags:
+- Health
+- Wellness
+- MCP
+- Personal Health
+- Healthcare
+apis:
+- name: CareClinic MCP
+  description: OAuth-gated MCP endpoint. Unauthenticated initialize answers 401 with a WWW-Authenticate carrying
+    resource_metadata AND granular scopes (careclinic.wellness.read, careclinic.symptoms.write, careclinic.mood.write)
+    -- the full RFC 9728 discovery loop, verified live 2026-09-09 with a discriminating 404 control beside it.
+  humanURL: https://careclinic.io/careclinic-mcp/
+  baseURL: https://mcp.careclinic.io/mcp
+  tags:
+  - MCP
+  - Health
+  properties:
+  - type: MCPServer
+    url: https://mcp.careclinic.io/mcp
+  - type: ProtectedResourceMetadata
+    url: https://mcp.careclinic.io/.well-known/oauth-protected-resource/mcp
+  - type: OAuthAuthorizationServer
+    url: https://mcp.careclinic.io/.well-known/oauth-authorization-server
+  - type: Documentation
+    url: https://cdn.careclinic.io/mcp/help/index.html
+  - type: X-MCPRegistry
+    url: https://registry.modelcontextprotocol.io/v0/servers?search=io.careclinic%2Fhealth-tracker
+common:
+- type: Website
+  url: https://careclinic.io
+maintainers:
+- FN: CareClinic
+  url: https://careclinic.io
+x-source:
+  via: api-search/inbox#25 (tandemloop)
+  fetched: '2026-09-09'
+  note: Every pointer verified live; the 401 challenge text is quoted in the API description.
