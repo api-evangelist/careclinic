@@ -1,0 +1,1 @@
+{"resource":"https://mcp.careclinic.io/mcp","authorization_servers":["https://mcp.careclinic.io"],"scopes_supported":["careclinic.wellness.read","careclinic.symptoms.write","careclinic.mood.write"],"bearer_methods_supported":["header"],"resource_name":"CareClinic MCP"}
