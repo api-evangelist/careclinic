@@ -4,7 +4,7 @@ description: 'CareClinic MCP is a private OAuth-connected health-tracking servic
   writes remain disabled. MCP-only surface -- there is no public REST contract, by design.'
 url: https://raw.githubusercontent.com/api-evangelist/careclinic/refs/heads/main/apis.yml
 created: '2026-09-09'
-modified: '2026-09-09'
+modified: '2026-10-06'
 specificationVersion: '0.21'
 tags:
 - Health
@@ -34,6 +34,10 @@ apis:
   - type: X-MCPRegistry
     url: https://registry.modelcontextprotocol.io/v0/servers?search=io.careclinic%2Fhealth-tracker
 common:
+- url: https://careclinic.io/blog/
+  type: Blog
+- url: https://careclinic.io/blog/feed/
+  type: BlogRSS
 - type: Website
   url: https://careclinic.io
 maintainers:
