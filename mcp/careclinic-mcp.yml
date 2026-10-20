@@ -46,3 +46,28 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools:
+- name: careclinic_capabilities
+  description: Shows the CareClinic data and actions available in this release.
+- name: careclinic_account
+  description: Returns the connected CareClinic account’s plan and basic-versus-full insight entitlement.
+- name: careclinic_today_schedule
+  description: Returns today’s owned medication and supplement occurrences with time, dose, reminder identity,
+    and status.
+- name: careclinic_search_catalog
+  description: Finds an owned medication, symptom or sleep care plan before preparing a log. Never invent
+    an item ID.
+- name: careclinic_recent_wellness
+  description: Returns minimized symptom, mood, medication and sleep activity. Notes and internal record
+    IDs are excluded.
+- name: careclinic_get_insights
+  description: Creates deterministic observational summaries. Free accounts receive basic counts; detailed
+    reports and chart values are returned only for Premium accounts.
+- name: careclinic_preview_log
+  description: Validates an exact owned symptom, mood or sleep entry and creates a short-lived confirmation
+    preview. It never writes data. Scheduled medication and supplement taken/skipped events are enabled.
+- name: careclinic_commit_log
+  description: App-only write used by the CareClinic confirmation card. It writes only the exact entry
+    represented by a valid signed preview after explicit confirmation. Replaying the same preview returns
+    the original receipt instead of creating a duplicate.
+tools_count: 8
