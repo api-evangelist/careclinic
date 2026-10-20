@@ -1,0 +1,1380 @@
+{
+  "endpoint": "https://mcp.careclinic.io/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "CareClinic Health Tracker",
+    "version": "0.3.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "careclinic_capabilities",
+        "title": "Show CareClinic capabilities",
+        "description": "Shows the CareClinic data and actions available in this release.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "_meta": {
+          "ui": {
+            "resourceUri": "ui://careclinic/tracker-card-v2.html",
+            "visibility": [
+              "model",
+              "app"
+            ]
+          },
+          "ui/resourceUri": "ui://careclinic/tracker-card-v2.html",
+          "openai/outputTemplate": "ui://careclinic/tracker-card-v2.html",
+          "openai/widgetAccessible": true,
+          "openai/toolInvocation/invoking": "Checking CareClinic…",
+          "openai/toolInvocation/invoked": "CareClinic is ready",
+          "securitySchemes": [
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read"
+              ]
+            }
+          ]
+        },
+        "outputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "capabilities"
+            },
+            "domains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "description"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "kind",
+            "domains"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "careclinic_account",
+        "title": "Get CareClinic account access",
+        "description": "Returns the connected CareClinic account’s plan and basic-versus-full insight entitlement.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "_meta": {
+          "ui": {
+            "resourceUri": "ui://careclinic/tracker-card-v2.html",
+            "visibility": [
+              "model",
+              "app"
+            ]
+          },
+          "ui/resourceUri": "ui://careclinic/tracker-card-v2.html",
+          "openai/outputTemplate": "ui://careclinic/tracker-card-v2.html",
+          "openai/widgetAccessible": true,
+          "openai/toolInvocation/invoking": "Checking account access…",
+          "openai/toolInvocation/invoked": "Account access ready",
+          "securitySchemes": [
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read"
+              ]
+            }
+          ]
+        },
+        "outputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "account"
+            },
+            "account": {
+              "type": "object",
+              "properties": {
+                "isPremium": {
+                  "type": "boolean"
+                },
+                "insightLevel": {
+                  "type": "string",
+                  "enum": [
+                    "basic",
+                    "full"
+                  ]
+                },
+                "planLabel": {
+                  "type": "string",
+                  "maxLength": 80
+                }
+              },
+              "required": [
+                "isPremium",
+                "insightLevel"
+              ],
+              "additionalProperties": false
+            },
+            "accountLinks": {
+              "type": "object",
+              "properties": {
+                "web": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "app": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": [
+                "web"
+              ],
+              "additionalProperties": false
+            },
+            "premiumInfoUrl": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": [
+            "kind",
+            "account",
+            "premiumInfoUrl"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "careclinic_today_schedule",
+        "title": "Show today’s CareClinic medication schedule",
+        "description": "Returns today’s owned medication and supplement occurrences with time, dose, reminder identity, and status.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {}
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "_meta": {
+          "ui": {
+            "resourceUri": "ui://careclinic/tracker-card-v2.html",
+            "visibility": [
+              "model",
+              "app"
+            ]
+          },
+          "ui/resourceUri": "ui://careclinic/tracker-card-v2.html",
+          "openai/outputTemplate": "ui://careclinic/tracker-card-v2.html",
+          "openai/widgetAccessible": true,
+          "openai/toolInvocation/invoking": "Loading today’s schedule…",
+          "openai/toolInvocation/invoked": "Today’s schedule is ready",
+          "securitySchemes": [
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read"
+              ]
+            }
+          ]
+        },
+        "outputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "today_schedule"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "occurrenceId": {
+                    "type": "string"
+                  },
+                  "medicationId": {
+                    "type": "string"
+                  },
+                  "medicationName": {
+                    "type": "string"
+                  },
+                  "scheduledAt": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "upcoming",
+                      "taken",
+                      "skipped",
+                      "snoozed"
+                    ]
+                  },
+                  "dose": {
+                    "type": "string"
+                  },
+                  "unit": {
+                    "type": "string"
+                  },
+                  "doseForm": {
+                    "type": "string"
+                  },
+                  "reminderId": {
+                    "type": "string"
+                  },
+                  "reminderIndex": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "occurrenceId",
+                  "medicationId",
+                  "medicationName",
+                  "scheduledAt",
+                  "status"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "kind",
+            "items"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "careclinic_search_catalog",
+        "title": "Search the connected CareClinic catalog",
+        "description": "Finds an owned medication, symptom or sleep care plan before preparing a log. Never invent an item ID.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "domain": {
+              "type": "string",
+              "enum": [
+                "symptom",
+                "medication",
+                "sleep"
+              ]
+            },
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            }
+          },
+          "required": [
+            "domain",
+            "query"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "_meta": {
+          "openai/toolInvocation/invoking": "Searching CareClinic…",
+          "openai/toolInvocation/invoked": "Catalog results ready",
+          "securitySchemes": [
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read"
+              ]
+            }
+          ]
+        },
+        "outputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "catalog_results"
+            },
+            "domain": {
+              "type": "string",
+              "enum": [
+                "symptom",
+                "medication",
+                "sleep"
+              ]
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "string",
+                    "enum": [
+                      "symptom",
+                      "medication",
+                      "sleep"
+                    ]
+                  },
+                  "secondaryLabel": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "domain"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "kind",
+            "domain",
+            "items"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "careclinic_recent_wellness",
+        "title": "Get recent CareClinic wellness logs",
+        "description": "Returns minimized symptom, mood, medication and sleep activity. Notes and internal record IDs are excluded.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "days": {
+              "default": 30,
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 90
+            },
+            "include": {
+              "default": [
+                "symptom",
+                "mood",
+                "medication",
+                "sleep"
+              ],
+              "minItems": 1,
+              "maxItems": 4,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "symptom",
+                  "mood",
+                  "medication",
+                  "sleep"
+                ]
+              }
+            }
+          }
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "_meta": {
+          "ui": {
+            "resourceUri": "ui://careclinic/tracker-card-v2.html",
+            "visibility": [
+              "model",
+              "app"
+            ]
+          },
+          "ui/resourceUri": "ui://careclinic/tracker-card-v2.html",
+          "openai/outputTemplate": "ui://careclinic/tracker-card-v2.html",
+          "openai/widgetAccessible": true,
+          "openai/toolInvocation/invoking": "Loading recent CareClinic activity…",
+          "openai/toolInvocation/invoked": "Recent activity ready",
+          "securitySchemes": [
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read"
+              ]
+            }
+          ]
+        },
+        "outputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "wellness_snapshot"
+            },
+            "snapshot": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                },
+                "symptoms": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "severity": {
+                        "type": "number"
+                      },
+                      "occurredAt": {
+                        "type": "string"
+                      },
+                      "durationMinutes": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "severity",
+                      "occurredAt"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "moods": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "valence": {
+                        "type": "number"
+                      },
+                      "energy": {
+                        "type": "number"
+                      },
+                      "occurredAt": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "valence",
+                      "occurredAt"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "medications": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "medicationName": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string",
+                        "enum": [
+                          "taken",
+                          "skipped"
+                        ]
+                      },
+                      "occurredAt": {
+                        "type": "string"
+                      },
+                      "dose": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "medicationName",
+                      "action",
+                      "occurredAt"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "sleep": {
+                  "default": [],
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "startAt": {
+                        "type": "string"
+                      },
+                      "endAt": {
+                        "type": "string"
+                      },
+                      "durationMinutes": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "sleepType": {
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "const": 0
+                          },
+                          {
+                            "type": "number",
+                            "const": 1
+                          },
+                          {
+                            "type": "number",
+                            "const": 2
+                          },
+                          {
+                            "type": "number",
+                            "const": 4
+                          }
+                        ]
+                      },
+                      "quality": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 5
+                      }
+                    },
+                    "required": [
+                      "startAt",
+                      "endAt",
+                      "durationMinutes",
+                      "sleepType"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "from",
+                "to",
+                "symptoms",
+                "moods",
+                "medications",
+                "sleep"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "kind",
+            "snapshot"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "careclinic_get_insights",
+        "title": "Summarize CareClinic wellness patterns",
+        "description": "Creates deterministic observational summaries. Free accounts receive basic counts; detailed reports and chart values are returned only for Premium accounts.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "days": {
+              "default": 30,
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 90
+            },
+            "include": {
+              "default": [
+                "symptom",
+                "mood",
+                "medication"
+              ],
+              "minItems": 1,
+              "maxItems": 3,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "symptom",
+                  "mood",
+                  "medication"
+                ]
+              }
+            }
+          }
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "_meta": {
+          "ui": {
+            "resourceUri": "ui://careclinic/tracker-card-v2.html",
+            "visibility": [
+              "model",
+              "app"
+            ]
+          },
+          "ui/resourceUri": "ui://careclinic/tracker-card-v2.html",
+          "openai/outputTemplate": "ui://careclinic/tracker-card-v2.html",
+          "openai/widgetAccessible": true,
+          "openai/toolInvocation/invoking": "Looking for patterns…",
+          "openai/toolInvocation/invoked": "Pattern summary ready",
+          "securitySchemes": [
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read"
+              ]
+            }
+          ]
+        },
+        "outputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "insight_access"
+            },
+            "access": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "level": {
+                      "type": "string",
+                      "const": "basic"
+                    },
+                    "isPremium": {
+                      "type": "boolean",
+                      "const": false
+                    },
+                    "premiumInfoUrl": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "dataCoverage": {
+                      "type": "object",
+                      "properties": {
+                        "symptomEntries": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "moodEntries": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "medicationEntries": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "symptomEntries",
+                        "moodEntries",
+                        "medicationEntries"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "basicSummary": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "level",
+                    "isPremium",
+                    "premiumInfoUrl",
+                    "dataCoverage",
+                    "basicSummary"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "level": {
+                      "type": "string",
+                      "const": "full"
+                    },
+                    "isPremium": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "dataCoverage": {
+                      "type": "object",
+                      "properties": {
+                        "symptomEntries": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "moodEntries": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "medicationEntries": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "symptomEntries",
+                        "moodEntries",
+                        "medicationEntries"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "report": {
+                      "type": "object",
+                      "properties": {
+                        "generatedAt": {
+                          "type": "string"
+                        },
+                        "period": {
+                          "type": "object",
+                          "properties": {
+                            "from": {
+                              "type": "string"
+                            },
+                            "to": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "from",
+                            "to"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "insights": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string"
+                              },
+                              "observation": {
+                                "type": "string"
+                              },
+                              "evidence": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "title",
+                              "observation",
+                              "evidence"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "chart": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "date": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "average": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "date",
+                              "label",
+                              "average"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "safety": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "generatedAt",
+                        "period",
+                        "insights",
+                        "chart",
+                        "safety"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "level",
+                    "isPremium",
+                    "dataCoverage",
+                    "report"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "accountLinks": {
+              "type": "object",
+              "properties": {
+                "web": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "app": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": [
+                "web"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "kind",
+            "access"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "careclinic_preview_log",
+        "title": "Preview a CareClinic check-in",
+        "description": "Validates an exact owned symptom, mood or sleep entry and creates a short-lived confirmation preview. It never writes data. Scheduled medication and supplement taken/skipped events are enabled.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "entry": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "domain": {
+                      "type": "string",
+                      "const": "symptom"
+                    },
+                    "symptomId": {
+                      "type": "string",
+                      "minLength": 32,
+                      "maxLength": 1024,
+                      "pattern": "^cc1\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+                    },
+                    "name": {
+                      "type": "string",
+                      "maxLength": 120
+                    },
+                    "severity": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10
+                    },
+                    "occurredAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    },
+                    "durationMinutes": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 43200
+                    },
+                    "note": {
+                      "type": "string",
+                      "maxLength": 300
+                    }
+                  },
+                  "required": [
+                    "domain",
+                    "symptomId",
+                    "name",
+                    "severity",
+                    "occurredAt"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "domain": {
+                      "type": "string",
+                      "const": "mood"
+                    },
+                    "label": {
+                      "type": "string",
+                      "maxLength": 120
+                    },
+                    "valence": {
+                      "type": "integer",
+                      "minimum": -5,
+                      "maximum": 5
+                    },
+                    "energy": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 10
+                    },
+                    "occurredAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    },
+                    "note": {
+                      "type": "string",
+                      "maxLength": 300
+                    }
+                  },
+                  "required": [
+                    "domain",
+                    "valence",
+                    "occurredAt"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "domain": {
+                      "type": "string",
+                      "const": "medication"
+                    },
+                    "medicationId": {
+                      "type": "string",
+                      "minLength": 32,
+                      "maxLength": 1024,
+                      "pattern": "^cc1\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+                    },
+                    "medicationName": {
+                      "type": "string",
+                      "maxLength": 120
+                    },
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "taken",
+                        "skipped"
+                      ]
+                    },
+                    "occurredAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    },
+                    "reminderId": {
+                      "type": "string",
+                      "minLength": 32,
+                      "maxLength": 1024,
+                      "pattern": "^cc1\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+                    },
+                    "reminderIndex": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1000
+                    },
+                    "note": {
+                      "type": "string",
+                      "maxLength": 300
+                    }
+                  },
+                  "required": [
+                    "domain",
+                    "medicationId",
+                    "medicationName",
+                    "action",
+                    "occurredAt"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "domain": {
+                      "type": "string",
+                      "const": "sleep"
+                    },
+                    "planId": {
+                      "type": "string",
+                      "minLength": 32,
+                      "maxLength": 1024,
+                      "pattern": "^cc1\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+                    },
+                    "planName": {
+                      "type": "string",
+                      "maxLength": 120
+                    },
+                    "occurredAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    },
+                    "stages": {
+                      "minItems": 1,
+                      "maxItems": 4,
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sleepType": {
+                            "anyOf": [
+                              {
+                                "type": "number",
+                                "const": 0
+                              },
+                              {
+                                "type": "number",
+                                "const": 1
+                              },
+                              {
+                                "type": "number",
+                                "const": 2
+                              },
+                              {
+                                "type": "number",
+                                "const": 4
+                              }
+                            ]
+                          },
+                          "startAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                          },
+                          "endAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                          },
+                          "durationMinutes": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 1440
+                          }
+                        },
+                        "required": [
+                          "sleepType",
+                          "startAt",
+                          "endAt",
+                          "durationMinutes"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "quality": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 5
+                    },
+                    "note": {
+                      "type": "string",
+                      "maxLength": 250
+                    }
+                  },
+                  "required": [
+                    "domain",
+                    "occurredAt",
+                    "stages"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "entry"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "_meta": {
+          "ui": {
+            "resourceUri": "ui://careclinic/tracker-card-v2.html",
+            "visibility": [
+              "model",
+              "app"
+            ]
+          },
+          "ui/resourceUri": "ui://careclinic/tracker-card-v2.html",
+          "openai/outputTemplate": "ui://careclinic/tracker-card-v2.html",
+          "openai/widgetAccessible": true,
+          "openai/toolInvocation/invoking": "Preparing a CareClinic preview…",
+          "openai/toolInvocation/invoked": "Review before saving",
+          "securitySchemes": [
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read",
+                "careclinic.symptoms.write"
+              ]
+            },
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read",
+                "careclinic.mood.write"
+              ]
+            },
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read",
+                "careclinic.sleep.write"
+              ]
+            },
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read",
+                "careclinic.medications.write"
+              ]
+            }
+          ]
+        },
+        "outputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "log_preview"
+            },
+            "preview": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              }
+            },
+            "expiresAt": {
+              "type": "string"
+            },
+            "requiresExplicitConfirmation": {
+              "type": "boolean",
+              "const": true
+            }
+          },
+          "required": [
+            "kind",
+            "preview",
+            "expiresAt",
+            "requiresExplicitConfirmation"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "careclinic_commit_log",
+        "title": "Save a confirmed CareClinic check-in",
+        "description": "App-only write used by the CareClinic confirmation card. It writes only the exact entry represented by a valid signed preview after explicit confirmation. Replaying the same preview returns the original receipt instead of creating a duplicate.",
+        "inputSchema": {
+          "type": "object",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "properties": {
+            "confirmationToken": {
+              "type": "string",
+              "minLength": 80,
+              "maxLength": 12000
+            },
+            "confirmed": {
+              "type": "boolean",
+              "const": true
+            }
+          },
+          "required": [
+            "confirmationToken",
+            "confirmed"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "_meta": {
+          "ui": {
+            "visibility": [
+              "app"
+            ]
+          },
+          "openai/widgetAccessible": true,
+          "openai/toolInvocation/invoking": "Saving the confirmed check-in…",
+          "openai/toolInvocation/invoked": "Check-in saved",
+          "securitySchemes": [
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read",
+                "careclinic.symptoms.write"
+              ]
+            },
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read",
+                "careclinic.mood.write"
+              ]
+            },
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read",
+                "careclinic.sleep.write"
+              ]
+            },
+            {
+              "type": "oauth2",
+              "scopes": [
+                "careclinic.wellness.read",
+                "careclinic.medications.write"
+              ]
+            }
+          ]
+        },
+        "outputSchema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "write_receipt"
+            },
+            "receipt": {
+              "type": "object",
+              "properties": {
+                "saved": {
+                  "type": "boolean",
+                  "const": true
+                },
+                "domain": {
+                  "type": "string",
+                  "enum": [
+                    "symptom",
+                    "mood",
+                    "medication",
+                    "sleep"
+                  ]
+                },
+                "occurredAt": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "duplicatePrevented": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "saved",
+                "domain",
+                "occurredAt",
+                "summary",
+                "duplicatePrevented"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "kind",
+            "receipt"
+          ],
+          "additionalProperties": false
+        }
+      }
+    ]
+  }
+}
